@@ -15,6 +15,13 @@
             background-position: center;
         }
         
+        /* Fixed title styles */
+        .fixed-title {
+            position: relative;
+            z-index: 60;
+            transition: all 0.3s ease;
+        }
+        
         /* Smooth scrolling and animations */
         html {
             scroll-behavior: smooth;
@@ -138,7 +145,7 @@
             <div class="flex justify-between h-16">
                 <div class="flex items-center justify-between w-full">
                     <div class="flex-shrink-0 flex items-center">
-                        <span class="text-2xl font-bold text-pink-600">WeddingVendors</span>
+                        <span class="text-2xl font-bold text-pink-600 fixed-title">WeddingVendors</span>
                     </div>
                     <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
                         <a href="#home" class="border-pink-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
@@ -190,14 +197,21 @@
                     Discover top-rated vendors for your special day - photographers, caterers, venues, and more.
                 </p>
                 <div class="mt-10 max-w-xl mx-auto">
-                    <div class="relative rounded-md shadow-md">
-                        <input type="text" placeholder="Find photographers, caterers..." class="block w-full py-3 pl-5 pr-12 border-gray-300 rounded-md focus:ring-pink-500 focus:border-pink-500">
-                        <div class="absolute inset-y-0 right-0 flex items-center pr-3">
-                            <button class="bg-pink-500 p-2 rounded-r-md text-white focus:outline-none hover:bg-pink-600">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
+                    <div class="relative flex rounded-md shadow-md">
+                        <input type="text" placeholder="Find photographers, caterers..." class="block w-full py-3 pl-5 pr-12 border-gray-300 rounded-l-md focus:ring-pink-500 focus:border-pink-500">
+                        <select class="py-3 px-4 border-l border-gray-300 bg-white text-gray-700 focus:ring-pink-500 focus:border-pink-500">
+                            <option value="">Any Budget</option>
+                            <option value="0-50000">Under ₹50,000</option>
+                            <option value="50000-100000">₹50,000 - ₹1,00,000</option>
+                            <option value="100000-200000">₹1,00,000 - ₹2,00,000</option>
+                            <option value="200000-500000">₹2,00,000 - ₹5,00,000</option>
+                            <option value="500000+">Above ₹5,00,000</option>
+                        </select>
+                        <button class="bg-pink-500 px-6 rounded-r-md text-white focus:outline-none hover:bg-pink-600">
+                            <i class="fas fa-search"></i>
+                        </button>
                     </div>
+                    <p class="mt-2 text-sm text-gray-200 text-center">Filter services by category and budget range</p>
                 </div>
             </div>
         </div>
