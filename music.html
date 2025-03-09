@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Music - Wedding Vendor Marketplace</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .musician-card:hover img {
+            transform: scale(1.05);
+        }
+        .musician-card img {
+            transition: transform 0.5s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-pink-600 hover:text-pink-700 transition-colors">WeddingVendors</a>
+                </div>
+                <div class="flex items-center">
+                    <a href="index.html" class="text-gray-500 hover:text-pink-600 transition-colors">
+                        <i class="fas fa-arrow-left mr-2"></i>
+                        Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-16">
+        <!-- Hero Section -->
+        <div class="bg-pink-50">
+            <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">
+                        Wedding Music
+                    </h1>
+                    <p class="max-w-xl mt-5 mx-auto text-xl text-gray-500">
+                        Set the perfect mood with our professional musicians and DJs.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Musicians Grid -->
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                <!-- Musician 1 -->
+                <div class="musician-card bg-white shadow-lg rounded-lg overflow-hidden">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3" 
+                             alt="Wedding DJ" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900">Elite Wedding DJs</h3>
+                        <div class="flex items-center mt-2">
+                            <div class="text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="ml-2 text-sm text-gray-600">5.0 (85 reviews)</span>
+                        </div>
+                        <div class="mt-4">
+                            <h4 class="text-sm font-medium text-gray-900">Starting Price:</h4>
+                            <p class="text-2xl font-bold text-pink-600">₹35,000</p>
+                        </div>
+                        <ul class="mt-4 space-y-2 text-sm text-gray-600">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Professional DJ</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Premium Sound System</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Lighting Effects</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Custom Playlist</li>
+                        </ul>
+                        <button class="mt-6 w-full bg-pink-600 text-white py-2 px-4 rounded-md hover:bg-pink-700 transition-colors">
+                            Contact Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Musician 2 -->
+                <div class="musician-card bg-white shadow-lg rounded-lg overflow-hidden">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1465847899084-d164df4dedc6" 
+                             alt="Live Band" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900">Harmony Wedding Band</h3>
+                        <div class="flex items-center mt-2">
+                            <div class="text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half"></i>
+                            </div>
+                            <span class="ml-2 text-sm text-gray-600">4.5 (72 reviews)</span>
+                        </div>
+                        <div class="mt-4">
+                            <h4 class="text-sm font-medium text-gray-900">Starting Price:</h4>
+                            <p class="text-2xl font-bold text-pink-600">₹75,000</p>
+                        </div>
+                        <ul class="mt-4 space-y-2 text-sm text-gray-600">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>5-Piece Band</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Multiple Genres</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Live Performance</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Special Requests</li>
+                        </ul>
+                        <button class="mt-6 w-full bg-pink-600 text-white py-2 px-4 rounded-md hover:bg-pink-700 transition-colors">
+                            Contact Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Musician 3 -->
+                <div class="musician-card bg-white shadow-lg rounded-lg overflow-hidden">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4" 
+                             alt="Classical Musicians" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900">Classical Ensemble</h3>
+                        <div class="flex items-center mt-2">
+                            <div class="text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="ml-2 text-sm text-gray-600">5.0 (68 reviews)</span>
+                        </div>
+                        <div class="mt-4">
+                            <h4 class="text-sm font-medium text-gray-900">Starting Price:</h4>
+                            <p class="text-2xl font-bold text-pink-600">₹45,000</p>
+                        </div>
+                        <ul class="mt-4 space-y-2 text-sm text-gray-600">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>String Quartet</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Classical Repertoire</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Ceremony Music</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Elegant Ambiance</li>
+                        </ul>
+                        <button class="mt-6 w-full bg-pink-600 text-white py-2 px-4 rounded-md hover:bg-pink-700 transition-colors">
+                            Contact Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Information -->
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                <div class="p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Why Choose Our Musicians?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div>
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-music text-3xl text-pink-600 mr-4"></i>
+                                <h3 class="text-lg font-semibold">Professional Artists</h3>
+                            </div>
+                            <p class="text-gray-600">Experienced musicians with extensive wedding performance background.</p>
+                        </div>
+                        <div>
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-microphone text-3xl text-pink-600 mr-4"></i>
+                                <h3 class="text-lg font-semibold">Quality Equipment</h3>
+                            </div>
+                            <p class="text-gray-600">Top-of-the-line sound systems and professional gear.</p>
+                        </div>
+                        <div>
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-heart text-3xl text-pink-600 mr-4"></i>
+                                <h3 class="text-lg font-semibold">Customized Service</h3>
+                            </div>
+                            <p class="text-gray-600">Personalized playlists and performance styles for your special day.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-base text-gray-400">
+                &copy; 2023 Wedding Vendor Marketplace. All rights reserved.
+            </p>
+        </div>
+    </footer>
+</body>
+</html> 

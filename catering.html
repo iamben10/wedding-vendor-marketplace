@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catering Services - Wedding Vendor Marketplace</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .caterer-card:hover img {
+            transform: scale(1.05);
+        }
+        .caterer-card img {
+            transition: transform 0.5s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-pink-600 hover:text-pink-700 transition-colors">WeddingVendors</a>
+                </div>
+                <div class="flex items-center">
+                    <a href="index.html" class="text-gray-500 hover:text-pink-600 transition-colors">
+                        <i class="fas fa-arrow-left mr-2"></i>
+                        Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-16">
+        <!-- Hero Section -->
+        <div class="bg-pink-50">
+            <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">
+                        Wedding Catering
+                    </h1>
+                    <p class="max-w-xl mt-5 mx-auto text-xl text-gray-500">
+                        Discover exquisite catering services for your perfect wedding feast.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Caterers Grid -->
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                <!-- Caterer 1 -->
+                <div class="caterer-card bg-white shadow-lg rounded-lg overflow-hidden">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1555244162-803834f70033" 
+                             alt="Luxury Catering" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900">Royal Feast Catering</h3>
+                        <div class="flex items-center mt-2">
+                            <div class="text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="ml-2 text-sm text-gray-600">5.0 (56 reviews)</span>
+                        </div>
+                        <div class="mt-4">
+                            <h4 class="text-sm font-medium text-gray-900">Packages Starting From:</h4>
+                            <p class="text-2xl font-bold text-pink-600">₹1,200/plate</p>
+                        </div>
+                        <ul class="mt-4 space-y-2 text-sm text-gray-600">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Multi-cuisine Menu</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Live Cooking Stations</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Professional Staff</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Premium Tableware</li>
+                        </ul>
+                        <button class="mt-6 w-full bg-pink-600 text-white py-2 px-4 rounded-md hover:bg-pink-700 transition-colors">
+                            Contact Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Caterer 2 -->
+                <div class="caterer-card bg-white shadow-lg rounded-lg overflow-hidden">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1467453678174-768ec283a940" 
+                             alt="Wedding Catering" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900">Gourmet Celebrations</h3>
+                        <div class="flex items-center mt-2">
+                            <div class="text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half"></i>
+                            </div>
+                            <span class="ml-2 text-sm text-gray-600">4.5 (42 reviews)</span>
+                        </div>
+                        <div class="mt-4">
+                            <h4 class="text-sm font-medium text-gray-900">Packages Starting From:</h4>
+                            <p class="text-2xl font-bold text-pink-600">₹900/plate</p>
+                        </div>
+                        <ul class="mt-4 space-y-2 text-sm text-gray-600">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Customizable Menu</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Buffet Setup</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Trained Staff</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Basic Decor</li>
+                        </ul>
+                        <button class="mt-6 w-full bg-pink-600 text-white py-2 px-4 rounded-md hover:bg-pink-700 transition-colors">
+                            Contact Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Caterer 3 -->
+                <div class="caterer-card bg-white shadow-lg rounded-lg overflow-hidden">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1530062845289-9109b2c9c868" 
+                             alt="Premium Catering" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900">Luxury Bites</h3>
+                        <div class="flex items-center mt-2">
+                            <div class="text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="ml-2 text-sm text-gray-600">5.0 (62 reviews)</span>
+                        </div>
+                        <div class="mt-4">
+                            <h4 class="text-sm font-medium text-gray-900">Packages Starting From:</h4>
+                            <p class="text-2xl font-bold text-pink-600">₹1,500/plate</p>
+                        </div>
+                        <ul class="mt-4 space-y-2 text-sm text-gray-600">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>International Cuisine</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Multiple Live Stations</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>VIP Service</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Luxury Setup</li>
+                        </ul>
+                        <button class="mt-6 w-full bg-pink-600 text-white py-2 px-4 rounded-md hover:bg-pink-700 transition-colors">
+                            Contact Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Information -->
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                <div class="p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Why Choose Our Caterers?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div>
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-utensils text-3xl text-pink-600 mr-4"></i>
+                                <h3 class="text-lg font-semibold">Quality Ingredients</h3>
+                            </div>
+                            <p class="text-gray-600">Only the freshest and highest quality ingredients used in all our preparations.</p>
+                        </div>
+                        <div>
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-award text-3xl text-pink-600 mr-4"></i>
+                                <h3 class="text-lg font-semibold">Expert Chefs</h3>
+                            </div>
+                            <p class="text-gray-600">Experienced chefs with expertise in multiple cuisines and dietary requirements.</p>
+                        </div>
+                        <div>
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-shield-alt text-3xl text-pink-600 mr-4"></i>
+                                <h3 class="text-lg font-semibold">Hygiene Guaranteed</h3>
+                            </div>
+                            <p class="text-gray-600">FSSAI certified caterers with strict hygiene protocols.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-base text-gray-400">
+                &copy; 2023 Wedding Vendor Marketplace. All rights reserved.
+            </p>
+        </div>
+    </footer>
+</body>
+</html> 
