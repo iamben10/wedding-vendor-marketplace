@@ -190,6 +190,145 @@
             font-weight: 500;
             margin-right: 0.5rem;
         }
+
+        /* Auth Modal Styles */
+        .auth-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .auth-modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 500px;
+            width: 90%;
+            animation: modalFadeIn 0.5s ease;
+        }
+
+        .auth-tabs {
+            display: flex;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 1.5rem;
+        }
+
+        .auth-tab {
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .auth-tab.active {
+            color: #db2777;
+            border-bottom: 2px solid #db2777;
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .social-login-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .google-btn {
+            background-color: #ffffff;
+            color: #4285f4;
+            border: 1px solid #4285f4;
+        }
+
+        .google-btn:hover {
+            background-color: #f8fafc;
+        }
+
+        .facebook-btn {
+            background-color: #1877f2;
+            color: white;
+            border: 1px solid #1877f2;
+        }
+
+        .facebook-btn:hover {
+            background-color: #0c63d4;
+        }
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .auth-divider-text {
+            padding: 0 1rem;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .otp-inputs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .otp-input {
+            width: 3rem;
+            height: 3rem;
+            text-align: center;
+            font-size: 1.25rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.375rem;
+        }
+
+        .otp-input:focus {
+            border-color: #db2777;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(219, 39, 119, 0.3);
+        }
+
+        .user-badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: #fae8ff;
+            color: #db2777;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .user-badge img {
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 9999px;
+            margin-right: 0.5rem;
+        }
     </style>
 </head>
 <body class="bg-gray-50 pt-16">
@@ -247,6 +386,131 @@
         </div>
     </div>
 
+    <!-- Auth Modal -->
+    <div class="auth-modal" id="authModal" style="display: none;">
+        <div class="auth-modal-content">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 text-center">Welcome to WeddingVendors</h2>
+            <p class="text-gray-600 mb-6 text-center">Sign up or log in to continue</p>
+            
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="loginTab">Login</div>
+                <div class="auth-tab" id="signupTab">Sign Up</div>
+            </div>
+            
+            <!-- Login Form -->
+            <div class="auth-form active" id="loginForm">
+                <button class="social-login-btn google-btn">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" alt="Google" class="w-5 h-5 mr-3">
+                    Continue with Google
+                </button>
+                <button class="social-login-btn facebook-btn">
+                    <i class="fab fa-facebook-f mr-3"></i>
+                    Continue with Facebook
+                </button>
+                
+                <div class="auth-divider">
+                    <span class="auth-divider-text">or login with phone</span>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="loginPhone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                    <div class="flex">
+                        <span class="inline-flex items-center px-3 border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm rounded-l-md">
+                            +91
+                        </span>
+                        <input type="tel" id="loginPhone" class="flex-1 min-w-0 block w-full px-3 py-2 border border-gray-300 rounded-r-md focus:outline-none focus:ring-pink-500 focus:border-pink-500" placeholder="Enter your phone number">
+                    </div>
+                </div>
+                
+                <div id="loginOtpSection" style="display: none;">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Enter OTP sent to your phone</label>
+                    <div class="otp-inputs">
+                        <input type="text" maxlength="1" class="otp-input">
+                        <input type="text" maxlength="1" class="otp-input">
+                        <input type="text" maxlength="1" class="otp-input">
+                        <input type="text" maxlength="1" class="otp-input">
+                        <input type="text" maxlength="1" class="otp-input">
+                        <input type="text" maxlength="1" class="otp-input">
+                    </div>
+                    <p class="text-sm text-gray-500 mb-4">
+                        Didn't receive the code? <a href="#" class="text-pink-600 hover:text-pink-800">Resend OTP</a>
+                    </p>
+                </div>
+                
+                <button id="loginSendOtpBtn" class="w-full bg-pink-600 text-white py-3 px-4 rounded-md hover:bg-pink-700 transition-colors">
+                    Send OTP
+                </button>
+                
+                <button id="loginVerifyOtpBtn" class="w-full bg-pink-600 text-white py-3 px-4 rounded-md hover:bg-pink-700 transition-colors mt-4" style="display: none;">
+                    Verify & Login
+                </button>
+            </div>
+            
+            <!-- Signup Form -->
+            <div class="auth-form" id="signupForm">
+                <button class="social-login-btn google-btn">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" alt="Google" class="w-5 h-5 mr-3">
+                    Sign up with Google
+                </button>
+                <button class="social-login-btn facebook-btn">
+                    <i class="fab fa-facebook-f mr-3"></i>
+                    Sign up with Facebook
+                </button>
+                
+                <div class="auth-divider">
+                    <span class="auth-divider-text">or sign up with phone</span>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="signupName" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                    <input type="text" id="signupName" class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-pink-500 focus:border-pink-500" placeholder="Enter your full name">
+                </div>
+                
+                <div class="mb-4">
+                    <label for="signupPhone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                    <div class="flex">
+                        <span class="inline-flex items-center px-3 border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm rounded-l-md">
+                            +91
+                        </span>
+                        <input type="tel" id="signupPhone" class="flex-1 min-w-0 block w-full px-3 py-2 border border-gray-300 rounded-r-md focus:outline-none focus:ring-pink-500 focus:border-pink-500" placeholder="Enter your phone number">
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="signupEmail" class="block text-sm font-medium text-gray-700 mb-1">Email (Optional)</label>
+                    <input type="email" id="signupEmail" class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-pink-500 focus:border-pink-500" placeholder="Enter your email">
+                </div>
+                
+                <div id="signupOtpSection" style="display: none;">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Enter OTP sent to your phone</label>
+                    <div class="otp-inputs">
+                        <input type="text" maxlength="1" class="otp-input">
+                        <input type="text" maxlength="1" class="otp-input">
+                        <input type="text" maxlength="1" class="otp-input">
+                        <input type="text" maxlength="1" class="otp-input">
+                        <input type="text" maxlength="1" class="otp-input">
+                        <input type="text" maxlength="1" class="otp-input">
+                    </div>
+                    <p class="text-sm text-gray-500 mb-4">
+                        Didn't receive the code? <a href="#" class="text-pink-600 hover:text-pink-800">Resend OTP</a>
+                    </p>
+                </div>
+                
+                <button id="signupSendOtpBtn" class="w-full bg-pink-600 text-white py-3 px-4 rounded-md hover:bg-pink-700 transition-colors">
+                    Send OTP
+                </button>
+                
+                <button id="signupVerifyOtpBtn" class="w-full bg-pink-600 text-white py-3 px-4 rounded-md hover:bg-pink-700 transition-colors mt-4" style="display: none;">
+                    Verify & Create Account
+                </button>
+                
+                <p class="text-xs text-gray-500 mt-4 text-center">
+                    By signing up, you agree to our <a href="#" class="text-pink-600 hover:text-pink-800">Terms of Service</a> and <a href="#" class="text-pink-600 hover:text-pink-800">Privacy Policy</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+
     <!-- Scroll Progress Indicator -->
     <div class="fixed top-0 left-0 w-full h-1 bg-gray-200 z-50">
         <div id="scroll-progress" class="h-full bg-pink-600" style="width: 0%"></div>
@@ -260,16 +524,25 @@
                     <div class="flex-shrink-0 flex items-center">
                         <span class="text-2xl font-bold text-pink-600 fixed-title">WeddingVendors</span>
                     </div>
-                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                        <a href="#home" class="border-pink-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Home
-                        </a>
-                        <a href="#vendors" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Vendors
-                        </a>
-                        <a href="#contact" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Contact
-                        </a>
+                    <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                        <div class="sm:flex sm:space-x-8 mr-4">
+                            <a href="#home" class="border-pink-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                                Home
+                            </a>
+                            <a href="#vendors" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                                Vendors
+                            </a>
+                            <a href="#contact" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                                Contact
+                            </a>
+                        </div>
+                        <div class="user-badge hidden" id="userBadge">
+                            <img src="https://ui-avatars.com/api/?name=User&background=random" alt="User" id="userAvatar">
+                            <span id="userName">User</span>
+                        </div>
+                        <button id="loginButton" class="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500">
+                            Login / Sign Up
+                        </button>
                     </div>
                 </div>
                 <div class="-mr-2 flex items-center sm:hidden">
@@ -293,6 +566,11 @@
                 <a href="#contact" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
                     Contact
                 </a>
+                <div class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+                    <button id="mobileLoginButton" class="w-full text-left">
+                        Login / Sign Up
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
@@ -725,14 +1003,219 @@
             const currentLocationBadge = document.getElementById('currentLocationBadge');
             const changeLocationBtn = document.getElementById('changeLocationBtn');
             
+            // Auth Modal Elements
+            const authModal = document.getElementById('authModal');
+            const loginTab = document.getElementById('loginTab');
+            const signupTab = document.getElementById('signupTab');
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            const loginButton = document.getElementById('loginButton');
+            const mobileLoginButton = document.getElementById('mobileLoginButton');
+            const loginSendOtpBtn = document.getElementById('loginSendOtpBtn');
+            const loginVerifyOtpBtn = document.getElementById('loginVerifyOtpBtn');
+            const loginOtpSection = document.getElementById('loginOtpSection');
+            const signupSendOtpBtn = document.getElementById('signupSendOtpBtn');
+            const signupVerifyOtpBtn = document.getElementById('signupVerifyOtpBtn');
+            const signupOtpSection = document.getElementById('signupOtpSection');
+            const userBadge = document.getElementById('userBadge');
+            const userName = document.getElementById('userName');
+            const userAvatar = document.getElementById('userAvatar');
+            
+            // Check if user is already logged in
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (isLoggedIn) {
+                const userData = JSON.parse(localStorage.getItem('userData'));
+                if (userData) {
+                    showLoggedInUser(userData);
+                }
+            }
+            
             // Check if location is already set in localStorage
             const savedLocation = localStorage.getItem('selectedLocation');
             if (savedLocation) {
                 const locationObj = JSON.parse(savedLocation);
                 currentLocationDisplay.textContent = `${locationObj.district}, ${locationObj.state}`;
                 locationModal.style.display = 'none';
+                
+                // If location is set but user is not logged in, show auth modal
+                if (!isLoggedIn) {
+                    setTimeout(() => {
+                        authModal.style.display = 'flex';
+                    }, 500);
+                }
             } else {
                 currentLocationBadge.style.display = 'none';
+            }
+            
+            // Login/Signup button click handlers
+            loginButton.addEventListener('click', function() {
+                authModal.style.display = 'flex';
+            });
+            
+            mobileLoginButton.addEventListener('click', function() {
+                authModal.style.display = 'flex';
+                mobileMenu.classList.add('hidden');
+            });
+            
+            // Tab switching
+            loginTab.addEventListener('click', function() {
+                loginTab.classList.add('active');
+                signupTab.classList.remove('active');
+                loginForm.classList.add('active');
+                signupForm.classList.remove('active');
+            });
+            
+            signupTab.addEventListener('click', function() {
+                signupTab.classList.add('active');
+                loginTab.classList.remove('active');
+                signupForm.classList.add('active');
+                loginForm.classList.remove('active');
+            });
+            
+            // OTP handling for login
+            loginSendOtpBtn.addEventListener('click', function() {
+                const phoneNumber = document.getElementById('loginPhone').value;
+                if (phoneNumber && phoneNumber.length === 10) {
+                    // Simulate OTP sending
+                    loginOtpSection.style.display = 'block';
+                    loginSendOtpBtn.style.display = 'none';
+                    loginVerifyOtpBtn.style.display = 'block';
+                    
+                    // Clear any previous OTP inputs
+                    document.querySelectorAll('#loginOtpSection .otp-input').forEach(input => {
+                        input.value = '';
+                    });
+                    
+                    // Focus on first OTP input
+                    document.querySelector('#loginOtpSection .otp-input').focus();
+                } else {
+                    alert('Please enter a valid 10-digit phone number');
+                }
+            });
+            
+            // OTP handling for signup
+            signupSendOtpBtn.addEventListener('click', function() {
+                const name = document.getElementById('signupName').value;
+                const phoneNumber = document.getElementById('signupPhone').value;
+                
+                if (name && phoneNumber && phoneNumber.length === 10) {
+                    // Simulate OTP sending
+                    signupOtpSection.style.display = 'block';
+                    signupSendOtpBtn.style.display = 'none';
+                    signupVerifyOtpBtn.style.display = 'block';
+                    
+                    // Clear any previous OTP inputs
+                    document.querySelectorAll('#signupOtpSection .otp-input').forEach(input => {
+                        input.value = '';
+                    });
+                    
+                    // Focus on first OTP input
+                    document.querySelector('#signupOtpSection .otp-input').focus();
+                } else {
+                    alert('Please enter your name and a valid 10-digit phone number');
+                }
+            });
+            
+            // OTP verification for login
+            loginVerifyOtpBtn.addEventListener('click', function() {
+                // For demo purposes, any OTP is accepted
+                const phoneNumber = document.getElementById('loginPhone').value;
+                
+                // Create user data
+                const userData = {
+                    name: 'User', // Default name for login
+                    phone: phoneNumber,
+                    avatar: `https://ui-avatars.com/api/?name=User&background=random`
+                };
+                
+                // Save login state
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userData', JSON.stringify(userData));
+                
+                // Update UI
+                showLoggedInUser(userData);
+                
+                // Close modal
+                authModal.style.display = 'none';
+            });
+            
+            // OTP verification for signup
+            signupVerifyOtpBtn.addEventListener('click', function() {
+                // For demo purposes, any OTP is accepted
+                const name = document.getElementById('signupName').value;
+                const phoneNumber = document.getElementById('signupPhone').value;
+                const email = document.getElementById('signupEmail').value;
+                
+                // Create user data
+                const userData = {
+                    name: name,
+                    phone: phoneNumber,
+                    email: email,
+                    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`
+                };
+                
+                // Save login state
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userData', JSON.stringify(userData));
+                
+                // Update UI
+                showLoggedInUser(userData);
+                
+                // Close modal
+                authModal.style.display = 'none';
+            });
+            
+            // OTP input handling - auto-focus next input
+            document.querySelectorAll('.otp-input').forEach((input, index, inputs) => {
+                input.addEventListener('input', function() {
+                    if (this.value.length === 1 && index < inputs.length - 1) {
+                        inputs[index + 1].focus();
+                    }
+                });
+                
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Backspace' && !this.value && index > 0) {
+                        inputs[index - 1].focus();
+                    }
+                });
+            });
+            
+            // Social login buttons (for demo, they all work the same)
+            document.querySelectorAll('.social-login-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const isGoogle = this.classList.contains('google-btn');
+                    const provider = isGoogle ? 'Google' : 'Facebook';
+                    
+                    // Create user data
+                    const userData = {
+                        name: `${provider} User`,
+                        provider: provider.toLowerCase(),
+                        avatar: isGoogle 
+                            ? 'https://lh3.googleusercontent.com/a/default-user' 
+                            : 'https://graph.facebook.com/4/picture'
+                    };
+                    
+                    // Save login state
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('userData', JSON.stringify(userData));
+                    
+                    // Update UI
+                    showLoggedInUser(userData);
+                    
+                    // Close modal
+                    authModal.style.display = 'none';
+                });
+            });
+            
+            // Function to update UI for logged in user
+            function showLoggedInUser(userData) {
+                userName.textContent = userData.name;
+                if (userData.avatar) {
+                    userAvatar.src = userData.avatar;
+                }
+                
+                userBadge.classList.remove('hidden');
+                loginButton.classList.add('hidden');
             }
             
             // District data by state
