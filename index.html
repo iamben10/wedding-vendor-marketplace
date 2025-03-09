@@ -131,9 +131,122 @@
         .bg-white.overflow-hidden.shadow.rounded-lg:hover::before {
             left: 150%;
         }
+
+        /* Location Modal Styles */
+        .location-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .location-modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 500px;
+            width: 90%;
+            animation: modalFadeIn 0.5s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .location-selector {
+            transition: all 0.3s ease;
+        }
+
+        .location-selector:focus {
+            border-color: #db2777;
+            box-shadow: 0 0 0 3px rgba(219, 39, 119, 0.3);
+        }
+
+        .selected-location {
+            background-color: #fbf8ff;
+            border-left: 3px solid #db2777;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+
+        .location-badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: #fae8ff;
+            color: #db2777;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+        }
     </style>
 </head>
 <body class="bg-gray-50 pt-16">
+    <!-- Location Selection Modal -->
+    <div class="location-modal" id="locationModal">
+        <div class="location-modal-content">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 text-center">Select Your Location</h2>
+            <p class="text-gray-600 mb-6 text-center">We need your location to show you relevant wedding vendors in your area.</p>
+            
+            <div class="mb-4">
+                <label for="stateSelect" class="block text-sm font-medium text-gray-700 mb-1">State</label>
+                <select id="stateSelect" class="location-selector w-full p-2 border border-gray-300 rounded-md focus:outline-none">
+                    <option value="">Select State</option>
+                    <option value="andhra-pradesh">Andhra Pradesh</option>
+                    <option value="assam">Assam</option>
+                    <option value="bihar">Bihar</option>
+                    <option value="delhi">Delhi</option>
+                    <option value="gujarat">Gujarat</option>
+                    <option value="haryana">Haryana</option>
+                    <option value="karnataka">Karnataka</option>
+                    <option value="kerala">Kerala</option>
+                    <option value="madhya-pradesh">Madhya Pradesh</option>
+                    <option value="maharashtra">Maharashtra</option>
+                    <option value="punjab">Punjab</option>
+                    <option value="rajasthan">Rajasthan</option>
+                    <option value="tamil-nadu">Tamil Nadu</option>
+                    <option value="telangana">Telangana</option>
+                    <option value="uttar-pradesh">Uttar Pradesh</option>
+                    <option value="west-bengal">West Bengal</option>
+                </select>
+            </div>
+            
+            <div class="mb-6" id="districtContainer" style="display: none;">
+                <label for="districtSelect" class="block text-sm font-medium text-gray-700 mb-1">District</label>
+                <select id="districtSelect" class="location-selector w-full p-2 border border-gray-300 rounded-md focus:outline-none">
+                    <option value="">Select District</option>
+                    <!-- Districts will be populated dynamically -->
+                </select>
+            </div>
+
+            <div id="selectedLocationDisplay" class="mb-6" style="display: none;">
+                <div class="selected-location">
+                    <i class="fas fa-map-marker-alt text-pink-600 mr-2"></i>
+                    <span id="displaySelectedLocation">No location selected</span>
+                </div>
+            </div>
+            
+            <button id="confirmLocationBtn" class="w-full bg-pink-600 text-white py-3 px-4 rounded-md hover:bg-pink-700 transition-colors" disabled>
+                Confirm Location
+            </button>
+            
+            <p class="text-xs text-gray-500 mt-4 text-center">
+                Your location helps us provide you with the most relevant vendors. You can change it later from your profile.
+            </p>
+        </div>
+    </div>
+
     <!-- Scroll Progress Indicator -->
     <div class="fixed top-0 left-0 w-full h-1 bg-gray-200 z-50">
         <div id="scroll-progress" class="h-full bg-pink-600" style="width: 0%"></div>
@@ -197,21 +310,36 @@
                     Discover top-rated vendors for your special day - photographers, caterers, venues, and more.
                 </p>
                 <div class="mt-10 max-w-xl mx-auto">
-                    <div class="relative flex rounded-md shadow-md">
-                        <input type="text" placeholder="Find photographers, caterers..." class="block w-full py-3 pl-5 pr-12 border-gray-300 rounded-l-md focus:ring-pink-500 focus:border-pink-500">
-                        <select class="py-3 px-4 border-l border-gray-300 bg-white text-gray-700 focus:ring-pink-500 focus:border-pink-500">
-                            <option value="">Any Budget</option>
-                            <option value="0-50000">Under ₹50,000</option>
-                            <option value="50000-100000">₹50,000 - ₹1,00,000</option>
-                            <option value="100000-200000">₹1,00,000 - ₹2,00,000</option>
-                            <option value="200000-500000">₹2,00,000 - ₹5,00,000</option>
-                            <option value="500000+">Above ₹5,00,000</option>
-                        </select>
-                        <button class="bg-pink-500 px-6 rounded-r-md text-white focus:outline-none hover:bg-pink-600">
-                            <i class="fas fa-search"></i>
-                        </button>
+                    <div class="relative flex flex-col md:flex-row rounded-md shadow-md">
+                        <div class="flex w-full md:w-auto">
+                            <input type="text" placeholder="Find photographers, caterers..." class="block w-full py-3 pl-5 pr-12 border-gray-300 rounded-l-md md:rounded-l-md md:rounded-r-none focus:ring-pink-500 focus:border-pink-500">
+                        </div>
+                        <div class="flex w-full md:w-auto flex-col md:flex-row">
+                            <select id="budgetSelect" class="py-3 px-4 border-t md:border-t-0 md:border-l border-gray-300 bg-white text-gray-700 focus:ring-pink-500 focus:border-pink-500">
+                                <option value="">Any Budget</option>
+                                <option value="0-50000">Under ₹50,000</option>
+                                <option value="50000-100000">₹50,000 - ₹1,00,000</option>
+                                <option value="100000-200000">₹1,00,000 - ₹2,00,000</option>
+                                <option value="200000-500000">₹2,00,000 - ₹5,00,000</option>
+                                <option value="500000+">Above ₹5,00,000</option>
+                            </select>
+                            <div class="flex items-center w-full md:w-auto">
+                                <button class="w-full md:w-auto bg-pink-500 px-6 py-3 md:py-0 rounded-b-md md:rounded-b-none md:rounded-r-md text-white focus:outline-none hover:bg-pink-600">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <p class="mt-2 text-sm text-gray-200 text-center">Filter services by category and budget range</p>
+                    <div class="flex items-center justify-between mt-2">
+                        <p class="text-sm text-gray-200">Filter by budget range</p>
+                        <div class="location-badge" id="currentLocationBadge">
+                            <i class="fas fa-map-marker-alt mr-1"></i>
+                            <span id="currentLocationDisplay">Loading...</span>
+                            <button id="changeLocationBtn" class="ml-2 text-xs text-pink-800 hover:text-pink-900 focus:outline-none">
+                                <i class="fas fa-pencil-alt"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -584,6 +712,154 @@
             const mobileMenu = document.querySelector('.mobile-menu');
             const navbar = document.getElementById('navbar');
             const scrollProgress = document.getElementById('scroll-progress');
+            
+            // Location Modal Elements
+            const locationModal = document.getElementById('locationModal');
+            const stateSelect = document.getElementById('stateSelect');
+            const districtContainer = document.getElementById('districtContainer');
+            const districtSelect = document.getElementById('districtSelect');
+            const confirmLocationBtn = document.getElementById('confirmLocationBtn');
+            const selectedLocationDisplay = document.getElementById('selectedLocationDisplay');
+            const displaySelectedLocation = document.getElementById('displaySelectedLocation');
+            const currentLocationDisplay = document.getElementById('currentLocationDisplay');
+            const currentLocationBadge = document.getElementById('currentLocationBadge');
+            const changeLocationBtn = document.getElementById('changeLocationBtn');
+            
+            // Check if location is already set in localStorage
+            const savedLocation = localStorage.getItem('selectedLocation');
+            if (savedLocation) {
+                const locationObj = JSON.parse(savedLocation);
+                currentLocationDisplay.textContent = `${locationObj.district}, ${locationObj.state}`;
+                locationModal.style.display = 'none';
+            } else {
+                currentLocationBadge.style.display = 'none';
+            }
+            
+            // District data by state
+            const districtsByState = {
+                'andhra-pradesh': ['Visakhapatnam', 'Vijayawada', 'Guntur', 'Nellore', 'Kurnool'],
+                'assam': ['Guwahati', 'Silchar', 'Dibrugarh', 'Jorhat', 'Nagaon'],
+                'bihar': ['Patna', 'Gaya', 'Muzaffarpur', 'Bhagalpur', 'Darbhanga'],
+                'delhi': ['Central Delhi', 'East Delhi', 'New Delhi', 'North Delhi', 'South Delhi', 'West Delhi'],
+                'gujarat': ['Ahmedabad', 'Surat', 'Vadodara', 'Rajkot', 'Gandhinagar'],
+                'haryana': ['Gurgaon', 'Faridabad', 'Hisar', 'Panipat', 'Ambala'],
+                'karnataka': ['Bangalore', 'Mysore', 'Hubli', 'Mangalore', 'Belgaum'],
+                'kerala': ['Thiruvananthapuram', 'Kochi', 'Kozhikode', 'Thrissur', 'Kollam'],
+                'madhya-pradesh': ['Bhopal', 'Indore', 'Jabalpur', 'Gwalior', 'Ujjain'],
+                'maharashtra': ['Mumbai', 'Pune', 'Nagpur', 'Thane', 'Nashik'],
+                'punjab': ['Ludhiana', 'Amritsar', 'Jalandhar', 'Patiala', 'Bathinda'],
+                'rajasthan': ['Jaipur', 'Jodhpur', 'Udaipur', 'Kota', 'Ajmer'],
+                'tamil-nadu': ['Chennai', 'Coimbatore', 'Madurai', 'Tiruchirappalli', 'Salem'],
+                'telangana': ['Hyderabad', 'Warangal', 'Nizamabad', 'Karimnagar', 'Khammam'],
+                'uttar-pradesh': ['Lucknow', 'Kanpur', 'Agra', 'Varanasi', 'Meerut'],
+                'west-bengal': ['Kolkata', 'Howrah', 'Durgapur', 'Asansol', 'Siliguri']
+            };
+            
+            // State selection handler
+            stateSelect.addEventListener('change', function() {
+                const selectedState = this.value;
+                
+                if (selectedState) {
+                    // Clear previous options
+                    districtSelect.innerHTML = '<option value="">Select District</option>';
+                    
+                    // Add districts for selected state
+                    const districts = districtsByState[selectedState] || [];
+                    districts.forEach(district => {
+                        const option = document.createElement('option');
+                        option.value = district.toLowerCase().replace(/\s+/g, '-');
+                        option.textContent = district;
+                        districtSelect.appendChild(option);
+                    });
+                    
+                    // Show district selector
+                    districtContainer.style.display = 'block';
+                } else {
+                    // Hide district selector if no state selected
+                    districtContainer.style.display = 'none';
+                }
+                
+                // Update button state
+                updateConfirmButtonState();
+            });
+            
+            // District selection handler
+            districtSelect.addEventListener('change', function() {
+                updateConfirmButtonState();
+                
+                const selectedState = stateSelect.options[stateSelect.selectedIndex].text;
+                const selectedDistrict = districtSelect.options[districtSelect.selectedIndex].text;
+                
+                if (this.value) {
+                    displaySelectedLocation.textContent = `${selectedDistrict}, ${selectedState}`;
+                    selectedLocationDisplay.style.display = 'block';
+                } else {
+                    selectedLocationDisplay.style.display = 'none';
+                }
+            });
+            
+            // Update confirm button state
+            function updateConfirmButtonState() {
+                const stateSelected = stateSelect.value !== '';
+                const districtSelected = districtSelect.value !== '';
+                
+                confirmLocationBtn.disabled = !(stateSelected && districtSelected);
+                
+                if (stateSelected && districtSelected) {
+                    confirmLocationBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                } else {
+                    confirmLocationBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                }
+            }
+            
+            // Confirm location handler
+            confirmLocationBtn.addEventListener('click', function() {
+                const selectedState = stateSelect.options[stateSelect.selectedIndex].text;
+                const selectedDistrict = districtSelect.options[districtSelect.selectedIndex].text;
+                
+                // Save location to localStorage
+                const locationData = {
+                    state: selectedState,
+                    district: selectedDistrict,
+                    stateValue: stateSelect.value,
+                    districtValue: districtSelect.value
+                };
+                
+                localStorage.setItem('selectedLocation', JSON.stringify(locationData));
+                
+                // Update header location display
+                currentLocationDisplay.textContent = `${selectedDistrict}, ${selectedState}`;
+                currentLocationBadge.style.display = 'inline-flex';
+                
+                // Close modal
+                locationModal.style.display = 'none';
+            });
+            
+            // Change location button handler
+            changeLocationBtn.addEventListener('click', function() {
+                locationModal.style.display = 'flex';
+                
+                // Pre-fill with current location if available
+                const savedLocation = localStorage.getItem('selectedLocation');
+                if (savedLocation) {
+                    const locationObj = JSON.parse(savedLocation);
+                    
+                    // Set state
+                    stateSelect.value = locationObj.stateValue;
+                    
+                    // Trigger change event to load districts
+                    const event = new Event('change');
+                    stateSelect.dispatchEvent(event);
+                    
+                    // Set district
+                    setTimeout(() => {
+                        districtSelect.value = locationObj.districtValue;
+                        
+                        // Trigger change event to update button
+                        districtSelect.dispatchEvent(new Event('change'));
+                    }, 100);
+                }
+            });
             
             // Update scroll progress indicator and navbar appearance on scroll
             window.addEventListener('scroll', function() {
