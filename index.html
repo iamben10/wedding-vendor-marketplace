@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,11 +14,126 @@
             background-size: cover;
             background-position: center;
         }
+        
+        /* Smooth scrolling and animations */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Transition effects for navigation links */
+        a {
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        
+        /* Enhanced hover effects for navigation links */
+        .sm\:space-x-8 a:hover {
+            transform: translateY(-3px);
+            color: #db2777 !important; /* Pink-600 */
+            font-weight: bold;
+        }
+        
+        /* Hover effects for cards with much more dramatic animation */
+        .bg-white.overflow-hidden.shadow.rounded-lg {
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), 
+                        box-shadow 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+                        border 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .bg-white.overflow-hidden.shadow.rounded-lg:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 20px 25px -5px rgba(219, 39, 119, 0.3), 0 10px 10px -5px rgba(219, 39, 119, 0.2);
+            border: 2px solid #db2777; /* Pink-600 */
+        }
+        
+        /* Enhanced button animations */
+        .bg-pink-600 {
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .bg-pink-600:hover {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(219, 39, 119, 0.5), 0 4px 6px -2px rgba(219, 39, 119, 0.3);
+            background-color: #be185d !important; /* Pink-700 for deeper color */
+        }
+        
+        /* Enhanced category icon animations */
+        .mx-auto.h-20.w-20.flex.items-center.justify-center.rounded-full.bg-pink-100 {
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mx-auto.h-20.w-20.flex.items-center.justify-center.rounded-full.bg-pink-100:hover {
+            transform: scale(1.2) rotate(5deg);
+            background-color: rgba(249, 168, 212, 0.7);
+            box-shadow: 0 0 15px 5px rgba(219, 39, 119, 0.3);
+        }
+        
+        .mx-auto.h-20.w-20.flex.items-center.justify-center.rounded-full.bg-pink-100:hover i {
+            transform: scale(1.3);
+            color: #be185d !important; /* Pink-700 */
+        }
+        
+        .mx-auto.h-20.w-20.flex.items-center.justify-center.rounded-full.bg-pink-100 i {
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        
+        /* Add pulse animation to the search button */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .bg-pink-500.p-2.rounded-r-md {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Add floating animation to the hero text */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .text-4xl.font-extrabold.tracking-tight.text-white {
+            animation: float 5s ease-in-out infinite;
+        }
+        
+        /* Add shine effect to cards */
+        .bg-white.overflow-hidden.shadow.rounded-lg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: skewX(-25deg);
+            transition: all 0.75s;
+            z-index: 1;
+        }
+        
+        .bg-white.overflow-hidden.shadow.rounded-lg {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bg-white.overflow-hidden.shadow.rounded-lg:hover::before {
+            left: 150%;
+        }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50 pt-16">
+    <!-- Scroll Progress Indicator -->
+    <div class="fixed top-0 left-0 w-full h-1 bg-gray-200 z-50">
+        <div id="scroll-progress" class="h-full bg-pink-600" style="width: 0%"></div>
+    </div>
+    
     <!-- Navbar -->
-    <nav class="bg-white shadow-md">
+    <nav class="bg-white shadow-md fixed w-full z-50 transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex">
@@ -26,7 +141,7 @@
                         <span class="text-2xl font-bold text-pink-600">WeddingVendors</span>
                     </div>
                     <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                        <a href="#" class="border-pink-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <a href="#home" class="border-pink-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                             Home
                         </a>
                         <a href="#vendors" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
@@ -49,7 +164,7 @@
         <!-- Mobile menu, show/hide based on menu state -->
         <div class="mobile-menu hidden sm:hidden">
             <div class="pt-2 pb-3 space-y-1">
-                <a href="#" class="bg-pink-50 border-pink-500 text-pink-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+                <a href="#home" class="bg-pink-50 border-pink-500 text-pink-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
                     Home
                 </a>
                 <a href="#vendors" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
@@ -63,7 +178,7 @@
     </nav>
 
     <!-- Hero Section with Search Bar -->
-    <div class="hero-section relative">
+    <div id="home" class="hero-section relative">
         <div class="absolute inset-0 bg-black bg-opacity-50"></div>
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
             <div class="text-center">
@@ -360,7 +475,7 @@
                         Vendor Application Form
                     </h3>
                     <!-- Google Form Embed -->
-                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdFJqkneS8zIlW-IXgVoCwUP-k4OqvRZCfXyh8blY5pVr9oNQ/viewform?embedded=true" 
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd8LhvmLKKklNhGWiT3STsHHhCSyyBLvrd6ala2759aQTKRrA/viewform?usp=header" 
                             width="100%" 
                             height="800" 
                             frameborder="0" 
@@ -405,7 +520,7 @@
         <div class="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
             <nav class="flex flex-wrap justify-center -mx-5 -my-2">
                 <div class="px-5 py-2">
-                    <a href="#" class="text-base text-gray-300 hover:text-white">Home</a>
+                    <a href="#home" class="text-base text-gray-300 hover:text-white">Home</a>
                 </div>
                 <div class="px-5 py-2">
                     <a href="#vendors" class="text-base text-gray-300 hover:text-white">Vendors</a>
@@ -452,6 +567,54 @@
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuButton = document.querySelector('.mobile-menu-button');
             const mobileMenu = document.querySelector('.mobile-menu');
+            const navbar = document.getElementById('navbar');
+            const scrollProgress = document.getElementById('scroll-progress');
+            
+            // Update scroll progress indicator and navbar appearance on scroll
+            window.addEventListener('scroll', function() {
+                // Update scroll progress bar
+                const scrollTop = window.scrollY;
+                const docHeight = document.body.offsetHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                scrollProgress.style.width = scrollPercent + '%';
+                
+                // Change navbar appearance on scroll
+                if (scrollTop > 50) {
+                    navbar.classList.add('bg-pink-50');
+                    navbar.classList.add('shadow-lg');
+                    navbar.style.padding = '0.5rem 0';
+                } else {
+                    navbar.classList.remove('bg-pink-50');
+                    navbar.classList.remove('shadow-lg');
+                    navbar.style.padding = '0';
+                }
+                
+                // Highlight current section in navbar
+                const sections = ['home', 'vendors', 'contact'];
+                let currentSection = '';
+                
+                sections.forEach(section => {
+                    const element = document.getElementById(section);
+                    if (element) {
+                        const rect = element.getBoundingClientRect();
+                        if (rect.top <= 100 && rect.bottom >= 100) {
+                            currentSection = section;
+                        }
+                    }
+                });
+                
+                if (currentSection) {
+                    document.querySelectorAll('.sm\\:space-x-8 a').forEach(link => {
+                        link.classList.remove('border-pink-500', 'text-gray-900');
+                        link.classList.add('border-transparent', 'text-gray-500');
+                        
+                        if (link.getAttribute('href') === '#' + currentSection) {
+                            link.classList.remove('border-transparent', 'text-gray-500');
+                            link.classList.add('border-pink-500', 'text-gray-900');
+                        }
+                    });
+                }
+            });
             
             mobileMenuButton.addEventListener('click', function() {
                 mobileMenu.classList.toggle('hidden');
@@ -464,6 +627,140 @@
                     mobileMenu.classList.add('hidden');
                 });
             });
+            
+            // Smooth scroll for all anchor links with enhanced visual feedback
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    // Add visual feedback when clicking navigation links
+                    this.style.transition = 'all 0.3s ease';
+                    this.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 300);
+                    
+                    if (targetElement) {
+                        // Add active state to clicked nav item with enhanced visual effect
+                        if (this.parentElement.parentElement.classList.contains('sm:space-x-8')) {
+                            // Desktop navigation
+                            document.querySelectorAll('.sm:space-x-8 a').forEach(navLink => {
+                                navLink.classList.remove('border-pink-500', 'text-gray-900');
+                                navLink.classList.add('border-transparent', 'text-gray-500');
+                            });
+                            this.classList.remove('border-transparent', 'text-gray-500');
+                            this.classList.add('border-pink-500', 'text-gray-900');
+                        }
+                        
+                        // Add a flash effect to the target section
+                        const flashOverlay = document.createElement('div');
+                        flashOverlay.style.position = 'absolute';
+                        flashOverlay.style.top = '0';
+                        flashOverlay.style.left = '0';
+                        flashOverlay.style.width = '100%';
+                        flashOverlay.style.height = '100%';
+                        flashOverlay.style.backgroundColor = 'rgba(219, 39, 119, 0.2)';
+                        flashOverlay.style.zIndex = '10';
+                        flashOverlay.style.opacity = '0';
+                        flashOverlay.style.transition = 'opacity 0.5s ease';
+                        
+                        if (targetElement.style.position !== 'absolute' && 
+                            targetElement.style.position !== 'fixed' && 
+                            targetElement.style.position !== 'relative') {
+                            targetElement.style.position = 'relative';
+                        }
+                        
+                        targetElement.appendChild(flashOverlay);
+                        
+                        // Smooth scroll with enhanced animation
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80, // Offset for fixed header
+                            behavior: 'smooth'
+                        });
+                        
+                        // Flash effect when scrolled to target
+                        setTimeout(() => {
+                            flashOverlay.style.opacity = '1';
+                            setTimeout(() => {
+                                flashOverlay.style.opacity = '0';
+                                setTimeout(() => {
+                                    targetElement.removeChild(flashOverlay);
+                                }, 500);
+                            }, 500);
+                        }, 500);
+                    }
+                });
+            });
+            
+            // Add enhanced scroll animations for elements
+            const animateOnScroll = () => {
+                const elements = document.querySelectorAll('.bg-white.overflow-hidden.shadow.rounded-lg');
+                elements.forEach((element, index) => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.2;
+                    
+                    if (elementPosition < screenPosition) {
+                        // Staggered animation with delay based on index
+                        setTimeout(() => {
+                            element.style.opacity = '1';
+                            element.style.transform = 'translateY(0) scale(1)';
+                        }, index * 150); // Staggered delay
+                    }
+                });
+                
+                // Animate category icons
+                const categoryIcons = document.querySelectorAll('.mx-auto.h-20.w-20.flex.items-center.justify-center.rounded-full.bg-pink-100');
+                categoryIcons.forEach((icon, index) => {
+                    const iconPosition = icon.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.2;
+                    
+                    if (iconPosition < screenPosition) {
+                        // Staggered animation with delay based on index
+                        setTimeout(() => {
+                            icon.style.opacity = '1';
+                            icon.style.transform = 'translateY(0) rotate(0deg)';
+                        }, index * 100); // Staggered delay
+                    }
+                });
+            };
+            
+            // Set initial state for animations
+            document.querySelectorAll('.bg-white.overflow-hidden.shadow.rounded-lg').forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(50px) scale(0.9)';
+                element.style.transition = 'opacity 0.8s ease, transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55)';
+            });
+            
+            // Set initial state for category icons
+            document.querySelectorAll('.mx-auto.h-20.w-20.flex.items-center.justify-center.rounded-full.bg-pink-100').forEach(icon => {
+                icon.style.opacity = '0';
+                icon.style.transform = 'translateY(30px) rotate(-10deg)';
+                icon.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55)';
+            });
+            
+            // Add a subtle parallax effect to the hero section
+            const heroSection = document.querySelector('.hero-section');
+            window.addEventListener('scroll', function() {
+                const scrollPosition = window.scrollY;
+                if (heroSection) {
+                    heroSection.style.backgroundPosition = `center ${scrollPosition * 0.4}px`;
+                }
+            });
+            
+            // Run animation on scroll
+            window.addEventListener('scroll', animateOnScroll);
+            // Run once on page load
+            animateOnScroll();
+            
+            // Add a dramatic entrance animation for the entire page
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 1s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 300);
         });
     </script>
 </body>
