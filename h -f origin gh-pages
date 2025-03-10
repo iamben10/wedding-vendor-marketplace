@@ -1,0 +1,8 @@
+[33mcommit 102e03c79e7185f69302d8327ad59f0e0aeaba9a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mgh-pages[m[33m, [m[1;31morigin/gh-pages[m[33m)[m
+Author: iamben10 <186shiva123@gmail.com>
+Date:   Sun Mar 9 18:20:16 2025 +0530
+
+    Add smooth animations, fixed navigation, and enhanced visual effects
+
+A	_headers
+M	index.html

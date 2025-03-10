@@ -30,6 +30,21 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Fixed navbar styles */
+#navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 50;
+    background: white;
+}
+
+/* Fix for the scroll progress indicator */
+.fixed.top-0.left-0.w-full.h-1.bg-gray-200.z-50 {
+    z-index: 51;
+}
+
 /* Transition effects for navigation links */
 a {
     transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
