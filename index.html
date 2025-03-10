@@ -329,6 +329,101 @@
             border-radius: 9999px;
             margin-right: 0.5rem;
         }
+        
+        /* Vendor Form Modal Styles */
+        .vendor-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .vendor-modal.active {
+            display: flex;
+        }
+        
+        .vendor-modal-content {
+            background-color: white;
+            border-radius: 1rem;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            margin: 2rem 0;
+            position: relative;
+            animation: modalFadeIn 0.5s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .vendor-modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fdf2f8;
+        }
+        
+        .vendor-modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0;
+        }
+        
+        .vendor-modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #6b7280;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        
+        .vendor-modal-close:hover {
+            color: #db2777;
+        }
+        
+        .become-vendor-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: #db2777;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: bold;
+            box-shadow: 0 10px 15px -3px rgba(219, 39, 119, 0.3), 0 4px 6px -2px rgba(219, 39, 119, 0.2);
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .become-vendor-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(219, 39, 119, 0.4), 0 10px 10px -5px rgba(219, 39, 119, 0.3);
+        }
+        
+        .become-vendor-btn i {
+            margin-right: 0.5rem;
+        }
+        
+        @media (max-width: 640px) {
+            .become-vendor-btn {
+                bottom: 1rem;
+                right: 1rem;
+                padding: 0.75rem 1rem;
+                font-size: 0.875rem;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50 pt-16">
@@ -988,6 +1083,31 @@
         </div>
     </div>
 
+    <!-- Vendor Form Modal -->
+    <div class="vendor-modal" id="vendorModal">
+        <div class="vendor-modal-content">
+            <div class="vendor-modal-header">
+                <h2 class="text-xl font-bold text-gray-900">Become a Vendor on WeddingVendors</h2>
+                <button class="vendor-modal-close" id="closeVendorModal">&times;</button>
+            </div>
+            <div class="vendor-modal-body">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd8LhvmLKKklNhGWiT3STsHHhCSyyBLvrd6ala2759aQTKRrA/viewform?embedded=true"
+                    width="100%" 
+                    height="600px"
+                    frameborder="0" 
+                    marginheight="0" 
+                    marginwidth="0">
+                    Loading…
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Become Vendor Button -->
+    <button class="become-vendor-btn" id="becomeVendorBtn">
+        <i class="fas fa-store"></i> Become a Vendor
+    </button>
+
     <!-- Vendor Signup Google Form Section -->
     <div id="contact" class="bg-white py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -996,23 +1116,9 @@
                 <p class="mt-4 text-lg text-gray-500">
                     Join our marketplace and reach thousands of couples planning their big day.
                 </p>
-            </div>
-            <div class="mt-12 bg-white rounded-lg shadow-xl overflow-hidden">
-                <div class="px-4 py-5 sm:p-6">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900 text-center mb-6">
-                        Vendor Application Form
-                    </h3>
-                    <!-- Google Form Embed with improved styling -->
-                    <div class="relative w-full" style="padding-top: 100%;">
-                        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd8LhvmLKKklNhGWiT3STsHHhCSyyBLvrd6ala2759aQTKRrA/viewform?embedded=true"
-                            class="absolute top-0 left-0 w-full h-full"
-                            frameborder="0" 
-                            marginheight="0" 
-                            marginwidth="0">
-                            Loading…
-                        </iframe>
-                    </div>
-                </div>
+                <button class="mt-8 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500" id="contactVendorBtn">
+                    <i class="fas fa-paper-plane mr-2"></i> Apply Now
+                </button>
             </div>
         </div>
     </div>
@@ -1128,6 +1234,12 @@
             const userBadge = document.getElementById('userBadge');
             const userName = document.getElementById('userName');
             const userAvatar = document.getElementById('userAvatar');
+            
+            // Vendor Form Modal Elements
+            const vendorModal = document.getElementById('vendorModal');
+            const becomeVendorBtn = document.getElementById('becomeVendorBtn');
+            const contactVendorBtn = document.getElementById('contactVendorBtn');
+            const closeVendorModal = document.getElementById('closeVendorModal');
             
             // Check if user is already logged in
             const isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -1643,6 +1755,39 @@
             setTimeout(() => {
                 document.body.style.opacity = '1';
             }, 300);
+            
+            // Open vendor modal
+            becomeVendorBtn.addEventListener('click', function() {
+                vendorModal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            });
+            
+            contactVendorBtn.addEventListener('click', function() {
+                vendorModal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            });
+            
+            // Close vendor modal
+            closeVendorModal.addEventListener('click', function() {
+                vendorModal.classList.remove('active');
+                document.body.style.overflow = ''; // Re-enable scrolling
+            });
+            
+            // Close modal when clicking outside
+            vendorModal.addEventListener('click', function(e) {
+                if (e.target === vendorModal) {
+                    vendorModal.classList.remove('active');
+                    document.body.style.overflow = ''; // Re-enable scrolling
+                }
+            });
+            
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && vendorModal.classList.contains('active')) {
+                    vendorModal.classList.remove('active');
+                    document.body.style.overflow = ''; // Re-enable scrolling
+                }
+            });
         });
     </script>
 </body>
