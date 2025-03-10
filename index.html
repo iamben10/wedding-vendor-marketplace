@@ -8,425 +8,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .hero-section {
-            background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-        }
-        
-        /* Fixed title styles */
-        .fixed-title {
-            position: relative;
-            z-index: 60;
-            transition: all 0.3s ease;
-        }
-        
-        /* Smooth scrolling and animations */
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        /* Transition effects for navigation links */
-        a {
-            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        }
-        
-        /* Enhanced hover effects for navigation links */
-        .sm\:space-x-8 a:hover {
-            transform: translateY(-3px);
-            color: #db2777 !important; /* Pink-600 */
-            font-weight: bold;
-        }
-        
-        /* Hover effects for cards with much more dramatic animation */
-        .bg-white.overflow-hidden.shadow.rounded-lg {
-            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), 
-                        box-shadow 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55),
-                        border 0.3s ease;
-            border: 2px solid transparent;
-        }
-        
-        .bg-white.overflow-hidden.shadow.rounded-lg:hover {
-            transform: translateY(-15px) scale(1.03);
-            box-shadow: 0 20px 25px -5px rgba(219, 39, 119, 0.3), 0 10px 10px -5px rgba(219, 39, 119, 0.2);
-            border: 2px solid #db2777; /* Pink-600 */
-        }
-        
-        /* Enhanced button animations */
-        .bg-pink-600 {
-            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-        
-        .bg-pink-600:hover {
-            transform: scale(1.1) translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(219, 39, 119, 0.5), 0 4px 6px -2px rgba(219, 39, 119, 0.3);
-            background-color: #be185d !important; /* Pink-700 for deeper color */
-        }
-        
-        /* Enhanced category icon animations */
-        .mx-auto.h-20.w-20.flex.items-center.justify-center.rounded-full.bg-pink-100 {
-            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .mx-auto.h-20.w-20.flex.items-center.justify-center.rounded-full.bg-pink-100:hover {
-            transform: scale(1.2) rotate(5deg);
-            background-color: rgba(249, 168, 212, 0.7);
-            box-shadow: 0 0 15px 5px rgba(219, 39, 119, 0.3);
-        }
-        
-        .mx-auto.h-20.w-20.flex.items-center.justify-center.rounded-full.bg-pink-100:hover i {
-            transform: scale(1.3);
-            color: #be185d !important; /* Pink-700 */
-        }
-        
-        .mx-auto.h-20.w-20.flex.items-center.justify-center.rounded-full.bg-pink-100 i {
-            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        }
-        
-        /* Add pulse animation to the search button */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-        
-        .bg-pink-500.p-2.rounded-r-md {
-            animation: pulse 2s infinite;
-        }
-        
-        /* Add floating animation to the hero text */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        
-        .text-4xl.font-extrabold.tracking-tight.text-white {
-            animation: float 5s ease-in-out infinite;
-        }
-        
-        /* Add shine effect to cards */
-        .bg-white.overflow-hidden.shadow.rounded-lg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transform: skewX(-25deg);
-            transition: all 0.75s;
-            z-index: 1;
-        }
-        
-        .bg-white.overflow-hidden.shadow.rounded-lg {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .bg-white.overflow-hidden.shadow.rounded-lg:hover::before {
-            left: 150%;
-        }
-
-        /* Location Modal Styles */
-        .location-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .location-modal-content {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            max-width: 500px;
-            width: 90%;
-            animation: modalFadeIn 0.5s ease;
-        }
-
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .location-selector {
-            transition: all 0.3s ease;
-        }
-
-        .location-selector:focus {
-            border-color: #db2777;
-            box-shadow: 0 0 0 3px rgba(219, 39, 119, 0.3);
-        }
-
-        .selected-location {
-            background-color: #fbf8ff;
-            border-left: 3px solid #db2777;
-            padding: 0.5rem 1rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            margin-top: 0.5rem;
-        }
-
-        .location-badge {
-            display: inline-flex;
-            align-items: center;
-            background-color: #fae8ff;
-            color: #db2777;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            margin-right: 0.5rem;
-        }
-
-        /* Auth Modal Styles */
-        .auth-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .auth-modal-content {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            max-width: 500px;
-            width: 90%;
-            animation: modalFadeIn 0.5s ease;
-        }
-
-        .auth-tabs {
-            display: flex;
-            border-bottom: 1px solid #e5e7eb;
-            margin-bottom: 1.5rem;
-        }
-
-        .auth-tab {
-            padding: 0.75rem 1.5rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .auth-tab.active {
-            color: #db2777;
-            border-bottom: 2px solid #db2777;
-        }
-
-        .auth-form {
-            display: none;
-        }
-
-        .auth-form.active {
-            display: block;
-        }
-
-        .social-login-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 0.75rem;
-            border-radius: 0.375rem;
-            font-weight: 500;
-            margin-bottom: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .google-btn {
-            background-color: #ffffff;
-            color: #4285f4;
-            border: 1px solid #4285f4;
-        }
-
-        .google-btn:hover {
-            background-color: #f8fafc;
-        }
-
-        .facebook-btn {
-            background-color: #1877f2;
-            color: white;
-            border: 1px solid #1877f2;
-        }
-
-        .facebook-btn:hover {
-            background-color: #0c63d4;
-        }
-
-        .auth-divider {
-            display: flex;
-            align-items: center;
-            margin: 1.5rem 0;
-        }
-
-        .auth-divider::before,
-        .auth-divider::after {
-            content: "";
-            flex: 1;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .auth-divider-text {
-            padding: 0 1rem;
-            color: #6b7280;
-            font-size: 0.875rem;
-        }
-
-        .otp-inputs {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1.5rem;
-        }
-
-        .otp-input {
-            width: 3rem;
-            height: 3rem;
-            text-align: center;
-            font-size: 1.25rem;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.375rem;
-        }
-
-        .otp-input:focus {
-            border-color: #db2777;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(219, 39, 119, 0.3);
-        }
-
-        .user-badge {
-            display: inline-flex;
-            align-items: center;
-            background-color: #fae8ff;
-            color: #db2777;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-
-        .user-badge img {
-            width: 1.5rem;
-            height: 1.5rem;
-            border-radius: 9999px;
-            margin-right: 0.5rem;
-        }
-        
-        /* Vendor Form Modal Styles */
-        .vendor-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            overflow-y: auto;
-        }
-        
-        .vendor-modal.active {
-            display: flex;
-        }
-        
-        .vendor-modal-content {
-            background-color: white;
-            border-radius: 1rem;
-            max-width: 800px;
-            width: 90%;
-            max-height: 90vh;
-            margin: 2rem 0;
-            position: relative;
-            animation: modalFadeIn 0.5s ease;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .vendor-modal-header {
-            padding: 1.5rem;
-            border-bottom: 1px solid #e5e7eb;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #fdf2f8;
-        }
-        
-        .vendor-modal-body {
-            flex: 1;
-            overflow-y: auto;
-            padding: 0;
-        }
-        
-        .vendor-modal-close {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: #6b7280;
-            cursor: pointer;
-            transition: color 0.2s ease;
-        }
-        
-        .vendor-modal-close:hover {
-            color: #db2777;
-        }
-        
-        .become-vendor-btn {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background-color: #db2777;
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 9999px;
-            font-weight: bold;
-            box-shadow: 0 10px 15px -3px rgba(219, 39, 119, 0.3), 0 4px 6px -2px rgba(219, 39, 119, 0.2);
-            z-index: 50;
-            display: flex;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-        
-        .become-vendor-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(219, 39, 119, 0.4), 0 10px 10px -5px rgba(219, 39, 119, 0.3);
-        }
-        
-        .become-vendor-btn i {
-            margin-right: 0.5rem;
-        }
-        
-        @media (max-width: 640px) {
-            .become-vendor-btn {
-                bottom: 1rem;
-                right: 1rem;
-                padding: 0.75rem 1rem;
-                font-size: 0.875rem;
-            }
-        }
-    </style>
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-gray-50 pt-16">
+    <!-- Contact Vendor Home Button -->
+    <button class="contact-vendor-home-btn" id="contactVendorHomeBtn">
+        <i class="fas fa-home"></i>Contact Vendor
+    </button>
+
     <!-- Location Selection Modal -->
     <div class="location-modal" id="locationModal">
         <div class="location-modal-content">
@@ -792,11 +382,11 @@
                 <!-- Trust Badge 1 -->
                 <div class="bg-white rounded-lg shadow-lg p-6 transform transition-all duration-300 hover:scale-105">
                     <div class="flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mx-auto mb-4">
-                        <i class="fas fa-shield-alt text-3xl text-green-600"></i>
+                        <i class="fas fa-certificate text-3xl text-green-600"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-center text-gray-900 mb-2">Police-Verified Vendors</h3>
+                    <h3 class="text-xl font-bold text-center text-gray-900 mb-2">Verified Professionals</h3>
                     <p class="text-gray-600 text-center">
-                        Sabhi vendors ka <span class="font-semibold">police verification</span> hota hai. Aapki safety, hamari priority!
+                        All vendors are <span class="font-semibold">thoroughly verified</span> for quality and reliability. Your satisfaction is our priority!
                     </p>
                 </div>
                 
@@ -1325,6 +915,7 @@
             const currentLocationDisplay = document.getElementById('currentLocationDisplay');
             const currentLocationBadge = document.getElementById('currentLocationBadge');
             const changeLocationBtn = document.getElementById('changeLocationBtn');
+            const contactVendorHomeBtn = document.getElementById('contactVendorHomeBtn');
             
             // Auth Modal Elements
             const authModal = document.getElementById('authModal');
@@ -1422,7 +1013,7 @@
                     document.querySelector('#loginOtpSection .otp-input').focus();
                     
                     // For demo purposes, show the OTP
-                    alert('Demo OTP: 123456');
+                    alert('Demo OTP: 123456\n\nNote: In a real app, this would be sent as an SMS to your phone. For this demo, we\'re showing it here.');
                 } else {
                     alert('Please enter a valid 10-digit phone number');
                 }
@@ -1448,7 +1039,7 @@
                     document.querySelector('#signupOtpSection .otp-input').focus();
                     
                     // For demo purposes, show the OTP
-                    alert('Demo OTP: 123456');
+                    alert('Demo OTP: 123456\n\nNote: In a real app, this would be sent as an SMS to your phone. For this demo, we\'re showing it here.');
                 } else {
                     alert('Please enter your name and a valid 10-digit phone number');
                 }
@@ -1625,24 +1216,32 @@
                     const isGoogle = this.classList.contains('google-btn');
                     const provider = isGoogle ? 'Google' : 'Facebook';
                     
-                    // Create user data
-                    const userData = {
-                        name: `${provider} User`,
-                        provider: provider.toLowerCase(),
-                        avatar: isGoogle 
-                            ? 'https://lh3.googleusercontent.com/a/default-user' 
-                            : 'https://graph.facebook.com/4/picture'
-                    };
+                    alert(`In a real app, this would open a ${provider} authentication window. For this demo, we'll simulate the login.`);
                     
-                    // Save login state
-                    localStorage.setItem('isLoggedIn', 'true');
-                    localStorage.setItem('userData', JSON.stringify(userData));
+                    // Simulate a loading state
+                    this.innerHTML = `<div class="flex items-center justify-center"><div class="w-5 h-5 border-t-2 border-r-2 border-white rounded-full animate-spin mr-2"></div>Connecting to ${provider}...</div>`;
                     
-                    // Update UI
-                    showLoggedInUser(userData);
-                    
-                    // Close modal
-                    authModal.style.display = 'none';
+                    // Simulate auth process with a delay
+                    setTimeout(() => {
+                        // Create user data
+                        const userData = {
+                            name: `${provider} User`,
+                            provider: provider.toLowerCase(),
+                            avatar: isGoogle 
+                                ? 'https://lh3.googleusercontent.com/a/default-user' 
+                                : 'https://graph.facebook.com/4/picture'
+                        };
+                        
+                        // Save login state
+                        localStorage.setItem('isLoggedIn', 'true');
+                        localStorage.setItem('userData', JSON.stringify(userData));
+                        
+                        // Update UI
+                        showLoggedInUser(userData);
+                        
+                        // Close modal
+                        authModal.style.display = 'none';
+                    }, 1500);
                 });
             });
             
@@ -2060,6 +1659,25 @@
                 } else {
                     alert('Please enter your name and a valid 10-digit phone number');
                 }
+            });
+            
+            // Contact Vendor Home button functionality
+            contactVendorHomeBtn.addEventListener('click', function() {
+                // Scroll to the contact section
+                document.getElementById('contact').scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Highlight the contact section
+                document.querySelectorAll('nav a').forEach(navLink => {
+                    navLink.classList.remove('border-pink-500', 'text-gray-900');
+                    navLink.classList.add('border-transparent', 'text-gray-500');
+                    
+                    if (navLink.getAttribute('href') === '#contact') {
+                        navLink.classList.remove('border-transparent', 'text-gray-500');
+                        navLink.classList.add('border-pink-500', 'text-gray-900');
+                    }
+                });
             });
         });
     </script>
