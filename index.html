@@ -484,7 +484,12 @@
     <!-- Auth Modal -->
     <div class="auth-modal" id="authModal" style="display: none;">
         <div class="auth-modal-content">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4 text-center">Welcome to WeddingVendors</h2>
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold text-gray-900 text-center flex-grow">Welcome to WeddingVendors</h2>
+                <button id="closeAuthModal" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
             <p class="text-gray-600 mb-6 text-center">Sign up or log in to continue</p>
             
             <div class="auth-tabs">
@@ -528,7 +533,7 @@
                         <input type="text" maxlength="1" class="otp-input">
                     </div>
                     <p class="text-sm text-gray-500 mb-4">
-                        Didn't receive the code? <a href="#" class="text-pink-600 hover:text-pink-800">Resend OTP</a>
+                        Didn't receive the code? <a href="#" class="text-pink-600 hover:text-pink-800 resend-otp-login">Resend OTP</a>
                     </p>
                 </div>
                 
@@ -587,7 +592,7 @@
                         <input type="text" maxlength="1" class="otp-input">
                     </div>
                     <p class="text-sm text-gray-500 mb-4">
-                        Didn't receive the code? <a href="#" class="text-pink-600 hover:text-pink-800">Resend OTP</a>
+                        Didn't receive the code? <a href="#" class="text-pink-600 hover:text-pink-800 resend-otp-signup">Resend OTP</a>
                     </p>
                 </div>
                 
@@ -1323,6 +1328,7 @@
             
             // Auth Modal Elements
             const authModal = document.getElementById('authModal');
+            const closeAuthModal = document.getElementById('closeAuthModal');
             const loginTab = document.getElementById('loginTab');
             const signupTab = document.getElementById('signupTab');
             const loginForm = document.getElementById('loginForm');
@@ -1338,6 +1344,8 @@
             const userBadge = document.getElementById('userBadge');
             const userName = document.getElementById('userName');
             const userAvatar = document.getElementById('userAvatar');
+            const resendOtpLogin = document.querySelector('.resend-otp-login');
+            const resendOtpSignup = document.querySelector('.resend-otp-signup');
             
             // Vendor Form Modal Elements
             const vendorModal = document.getElementById('vendorModal');
@@ -1412,6 +1420,9 @@
                     
                     // Focus on first OTP input
                     document.querySelector('#loginOtpSection .otp-input').focus();
+                    
+                    // For demo purposes, show the OTP
+                    alert('Demo OTP: 123456');
                 } else {
                     alert('Please enter a valid 10-digit phone number');
                 }
@@ -1435,6 +1446,9 @@
                     
                     // Focus on first OTP input
                     document.querySelector('#signupOtpSection .otp-input').focus();
+                    
+                    // For demo purposes, show the OTP
+                    alert('Demo OTP: 123456');
                 } else {
                     alert('Please enter your name and a valid 10-digit phone number');
                 }
@@ -1442,64 +1456,165 @@
             
             // OTP verification for login
             loginVerifyOtpBtn.addEventListener('click', function() {
-                // For demo purposes, any OTP is accepted
-                const phoneNumber = document.getElementById('loginPhone').value;
+                // Get all OTP inputs
+                const otpInputs = document.querySelectorAll('#loginOtpSection .otp-input');
+                let otpValue = '';
                 
-                // Create user data
-                const userData = {
-                    name: 'User', // Default name for login
-                    phone: phoneNumber,
-                    avatar: `https://ui-avatars.com/api/?name=User&background=random`
-                };
+                // Collect OTP values
+                otpInputs.forEach(input => {
+                    otpValue += input.value;
+                });
                 
-                // Save login state
-                localStorage.setItem('isLoggedIn', 'true');
-                localStorage.setItem('userData', JSON.stringify(userData));
-                
-                // Update UI
-                showLoggedInUser(userData);
-                
-                // Close modal
-                authModal.style.display = 'none';
+                // Check if OTP is complete
+                if (otpValue.length === 6) {
+                    // For demo purposes, any 6-digit OTP is accepted
+                    const phoneNumber = document.getElementById('loginPhone').value;
+                    
+                    // Create user data
+                    const userData = {
+                        name: 'User', // Default name for login
+                        phone: phoneNumber,
+                        avatar: `https://ui-avatars.com/api/?name=User&background=random`
+                    };
+                    
+                    // Save login state
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('userData', JSON.stringify(userData));
+                    
+                    // Update UI
+                    showLoggedInUser(userData);
+                    
+                    // Close modal
+                    authModal.style.display = 'none';
+                } else {
+                    alert('Please enter the complete 6-digit OTP');
+                }
             });
             
             // OTP verification for signup
             signupVerifyOtpBtn.addEventListener('click', function() {
-                // For demo purposes, any OTP is accepted
-                const name = document.getElementById('signupName').value;
-                const phoneNumber = document.getElementById('signupPhone').value;
-                const email = document.getElementById('signupEmail').value;
+                // Get all OTP inputs
+                const otpInputs = document.querySelectorAll('#signupOtpSection .otp-input');
+                let otpValue = '';
                 
-                // Create user data
-                const userData = {
-                    name: name,
-                    phone: phoneNumber,
-                    email: email,
-                    avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`
-                };
+                // Collect OTP values
+                otpInputs.forEach(input => {
+                    otpValue += input.value;
+                });
                 
-                // Save login state
-                localStorage.setItem('isLoggedIn', 'true');
-                localStorage.setItem('userData', JSON.stringify(userData));
-                
-                // Update UI
-                showLoggedInUser(userData);
-                
-                // Close modal
-                authModal.style.display = 'none';
+                // Check if OTP is complete
+                if (otpValue.length === 6) {
+                    // For demo purposes, any 6-digit OTP is accepted
+                    const name = document.getElementById('signupName').value;
+                    const phoneNumber = document.getElementById('signupPhone').value;
+                    const email = document.getElementById('signupEmail').value;
+                    
+                    // Create user data
+                    const userData = {
+                        name: name,
+                        phone: phoneNumber,
+                        email: email,
+                        avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`
+                    };
+                    
+                    // Save login state
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('userData', JSON.stringify(userData));
+                    
+                    // Update UI
+                    showLoggedInUser(userData);
+                    
+                    // Close modal
+                    authModal.style.display = 'none';
+                } else {
+                    alert('Please enter the complete 6-digit OTP');
+                }
             });
             
             // OTP input handling - auto-focus next input
             document.querySelectorAll('.otp-input').forEach((input, index, inputs) => {
-                input.addEventListener('input', function() {
+                // Allow only numeric input
+                input.addEventListener('input', function(e) {
+                    // Remove non-numeric characters
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                    
                     if (this.value.length === 1 && index < inputs.length - 1) {
                         inputs[index + 1].focus();
+                    }
+                    
+                    // Check if all inputs are filled to enable auto-verification
+                    let allFilled = true;
+                    let otpValue = '';
+                    inputs.forEach(input => {
+                        if (!input.value) {
+                            allFilled = false;
+                        }
+                        otpValue += input.value;
+                    });
+                    
+                    // Auto-verify if all inputs are filled
+                    if (allFilled) {
+                        // Determine which form we're in
+                        const isLogin = input.closest('#loginForm');
+                        if (isLogin) {
+                            loginVerifyOtpBtn.click();
+                        } else {
+                            signupVerifyOtpBtn.click();
+                        }
                     }
                 });
                 
                 input.addEventListener('keydown', function(e) {
+                    // Handle backspace
                     if (e.key === 'Backspace' && !this.value && index > 0) {
                         inputs[index - 1].focus();
+                    }
+                    
+                    // Handle left arrow key
+                    if (e.key === 'ArrowLeft' && index > 0) {
+                        inputs[index - 1].focus();
+                    }
+                    
+                    // Handle right arrow key
+                    if (e.key === 'ArrowRight' && index < inputs.length - 1) {
+                        inputs[index + 1].focus();
+                    }
+                });
+                
+                // Handle paste event for OTP
+                input.addEventListener('paste', function(e) {
+                    e.preventDefault();
+                    const pasteData = (e.clipboardData || window.clipboardData).getData('text');
+                    const numericData = pasteData.replace(/[^0-9]/g, '').substring(0, 6);
+                    
+                    if (numericData.length > 0) {
+                        // Fill the current and subsequent inputs
+                        for (let i = 0; i < numericData.length && i + index < inputs.length; i++) {
+                            inputs[i + index].value = numericData[i];
+                        }
+                        
+                        // Focus on the next empty input or the last one
+                        const nextIndex = Math.min(index + numericData.length, inputs.length - 1);
+                        inputs[nextIndex].focus();
+                        
+                        // Check if all inputs are filled to enable auto-verification
+                        let allFilled = true;
+                        inputs.forEach(input => {
+                            if (!input.value) {
+                                allFilled = false;
+                            }
+                        });
+                        
+                        // Auto-verify if all inputs are filled
+                        if (allFilled) {
+                            // Determine which form we're in
+                            const isLogin = input.closest('#loginForm');
+                            if (isLogin) {
+                                loginVerifyOtpBtn.click();
+                            } else {
+                                signupVerifyOtpBtn.click();
+                            }
+                        }
                     }
                 });
             });
@@ -1890,6 +2005,60 @@
                 if (e.key === 'Escape' && vendorModal.classList.contains('active')) {
                     vendorModal.classList.remove('active');
                     document.body.style.overflow = ''; // Re-enable scrolling
+                }
+            });
+            
+            // Close auth modal when clicking the close button
+            closeAuthModal.addEventListener('click', function() {
+                authModal.style.display = 'none';
+            });
+            
+            // Close auth modal when clicking outside the modal content
+            authModal.addEventListener('click', function(event) {
+                if (event.target === authModal) {
+                    authModal.style.display = 'none';
+                }
+            });
+            
+            // Resend OTP for login
+            resendOtpLogin.addEventListener('click', function(e) {
+                e.preventDefault();
+                const phoneNumber = document.getElementById('loginPhone').value;
+                if (phoneNumber && phoneNumber.length === 10) {
+                    // Clear any previous OTP inputs
+                    document.querySelectorAll('#loginOtpSection .otp-input').forEach(input => {
+                        input.value = '';
+                    });
+                    
+                    // Focus on first OTP input
+                    document.querySelector('#loginOtpSection .otp-input').focus();
+                    
+                    // For demo purposes, show the OTP
+                    alert('Demo OTP Resent: 123456');
+                } else {
+                    alert('Please enter a valid 10-digit phone number');
+                }
+            });
+            
+            // Resend OTP for signup
+            resendOtpSignup.addEventListener('click', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('signupName').value;
+                const phoneNumber = document.getElementById('signupPhone').value;
+                
+                if (name && phoneNumber && phoneNumber.length === 10) {
+                    // Clear any previous OTP inputs
+                    document.querySelectorAll('#signupOtpSection .otp-input').forEach(input => {
+                        input.value = '';
+                    });
+                    
+                    // Focus on first OTP input
+                    document.querySelector('#signupOtpSection .otp-input').focus();
+                    
+                    // For demo purposes, show the OTP
+                    alert('Demo OTP Resent: 123456');
+                } else {
+                    alert('Please enter your name and a valid 10-digit phone number');
                 }
             });
         });
